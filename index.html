@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دفترچه یادداشت صورتی</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- سایدبار همیشه قابل مشاهده -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <input type="text" id="search" class="search-bar" placeholder="جستجو در یادداشت‌ها..."
+                    oninput="renderSidebar()">
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-note" onclick="createNewNote()">✨ یادداشت جدید</button>
+                <button class="btn btn-folder" onclick="createNewFolder()">📁 پوشه جدید</button>
+            </div>
+
+            <div class="menu-section">
+                <div id="notes-list">
+                </div>
+            </div>
+        </aside>
+
+        <!-- بخش ویرایشگر -->
+        <main class="main-editor">
+            <div class="editor-header">
+                <input type="text" id="note-title" class="editor-title" placeholder="عنوان یادداشت..."
+                    oninput="saveCurrentNote()">
+            </div>
+
+            <div class="toolbar">
+                <div class="toolbar-group">
+                    <button id="themeToggle" onclick="toggleTheme()">🌙</button>
+                    <button id="boldBtn" onclick="format('bold')" title="ضخیم"><b>B</b></button>
+                    <button id="italicBtn" onclick="format('italic')" title="کج"><i>I</i></button>
+                    <button id="h1Btn" onclick="applyMarkdown('# ', '', true)">H1</button>
+                    <button id="h2Btn" onclick="applyMarkdown('## ', '', true)">H2</button>
+                    <button id="h3Btn" onclick="applyMarkdown('### ', '', true)">H3</button>
+
+                    <button id="linkBtn" onclick="addLink()">🔗</button>
+                    <button id="codeBtn" onclick="applyMarkdown('`', '`')">{' '}</button>
+                    <button onclick="toggleCodeBlock()">code block</button>
+                </div>
+                <div class="toolbar-group">
+                    <input type="color" id="color-picker" value="#000000" onchange="changeColor(this.value)">
+                    <button id="ulBtn" onclick="format('insertUnorderedList')">•</button>
+                    <button id="olBtn" onclick="format('insertOrderedList')">1.</button>
+                    <button onclick="exportData()">📤 Export JSON</button>
+                    <button onclick="importData()">📥 Import JSON</button>
+                    <input type="file" id="importFile" accept=".json" style="display:none"
+                        onchange="handleImportFile(event)">
+                </div>
+                <div class="toolbar-group">
+                    <select id="folderSelect" onchange="moveNoteToFolder(this.value)">
+                        <option value="0">بدون پوشه</option>
+                    </select>
+                    <button id="pin-btn" onclick="togglePin()" title="پین کردن">📌</button>
+                    <button class="btn-delete-main" onclick="deleteCurrentNote()" title="حذف">🗑</button>
+                </div>
+            </div>
+
+            <div id="editor" class="editor-body" contenteditable="true" oninput="saveCurrentNote()">
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

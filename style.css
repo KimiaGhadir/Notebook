@@ -1,0 +1,434 @@
+:root {
+    --bg-color: #fff0f3;
+    --sidebar-bg: #ffe5ec;
+    --accent-main: #ff8fab;
+    --accent-dark: #fb6f92;
+    --text-color: #4a4e69;
+    --border-color: #ffc2d1;
+    --white: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Tahoma', sans-serif;
+}
+
+body {
+    margin: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* سایدبار ثابت و منحنی */
+.sidebar {
+    width: 300px;
+    background-color: var(--sidebar-bg);
+    border-left: 2px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.search-bar {
+    width: 100%;
+    padding: 12px;
+    border-radius: 15px;
+    /* منحنی زیبا */
+    border: 2px solid var(--border-color);
+    margin-bottom: 20px;
+    outline: none;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.toolbar button.active {
+    background-color: #fb6f92;
+}
+
+/* دکمه‌های منحنی و شیک */
+.btn {
+    flex: 1;
+    padding: 10px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+    color: white;
+}
+
+.btn-note {
+    background-color: var(--accent-dark);
+    box-shadow: 0 4px #ff4d6d;
+}
+
+.btn-folder {
+    background-color: var(--accent-main);
+    box-shadow: 0 4px #ff758f;
+}
+
+.btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px #ff4d6d;
+}
+
+/* لیست یادداشت‌ها */
+#notes-list {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.folder-group {
+    margin-bottom: 15px;
+}
+
+.folder-header {
+    font-weight: bold;
+    padding: 8px;
+    background: #ffc2d1;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.note-item-container {
+    padding: 12px;
+    background: var(--white);
+    margin-bottom: 8px;
+    border-radius: 12px;
+    /* منحنی دکمه‌های لیست */
+    cursor: pointer;
+    transition: 0.2s;
+    border: 1px solid transparent;
+}
+
+.note-item-container:hover {
+    background: #fffafb;
+    border-color: var(--accent-main);
+}
+
+.note-item-container.active {
+    background: var(--accent-main);
+    color: white;
+}
+
+/* ویرایشگر */
+.main-editor {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    background: var(--bg-color);
+}
+
+.editor-title {
+    font-size: 24px;
+    border: none;
+    background: transparent;
+    margin-bottom: 20px;
+    outline: none;
+    font-weight: bold;
+    color: var(--accent-dark);
+}
+
+.toolbar {
+    display: flex;
+    gap: 10px;
+    background: white;
+    padding: 10px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(255, 143, 171, 0.1);
+    align-items: center;
+}
+
+.toolbar button,
+.toolbar select {
+    padding: 8px 12px;
+    border-radius: 10px;
+    /* منحنی دکمه‌های ابزار */
+    border: 1px solid var(--border-color);
+    background: white;
+    cursor: pointer;
+}
+
+.toolbar button:hover {
+    background: var(--sidebar-bg);
+}
+
+#editor {
+    flex: 1;
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    outline: none;
+    line-height: 1.6;
+}
+
+[contenteditable]:empty:before {
+    content: attr(data-placeholder);
+    color: #ccc;
+}
+
+/* استایل‌های مربوط به عناصر مارک‌داون در ادیتور */
+#editor h1 {
+    font-size: 1.8em;
+    margin: 10px 0;
+    color: #d85a7f;
+}
+
+#editor h2 {
+    font-size: 1.5em;
+    margin: 8px 0;
+    color: #e97c94;
+}
+
+#editor code {
+    background-color: #fce4ec;
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    color: #c2185b;
+}
+
+#editor pre {
+    background-color: #f8f0f2;
+    padding: 15px;
+    border-radius: 8px;
+    border-right: 4px solid #e97c94;
+    overflow-x: auto;
+    margin: 10px 0;
+}
+
+#editor a {
+    color: #e91e63;
+    text-decoration: underline;
+}
+
+#editor ul,
+#editor ol {
+    padding-right: 30px;
+    /* برای RTL */
+    margin: 10px 0;
+}
+
+/* این بخش باعث می‌شود کل محیط ادیتور محدود به ارتفاع صفحه شود */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    /* کل ارتفاع صفحه */
+    overflow: hidden;
+    /* جلوگیری از اسکرول شدن کل صفحه */
+}
+
+#editor,
+.editor-body {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+    word-wrap: break-word;
+}
+
+#editor h1,
+#editor h2,
+#editor h3,
+#editor h4,
+#editor h5,
+#editor h6 {
+    color: inherit;
+}
+
+#editor h1 span,
+#editor h2 span,
+#editor h3 span {
+    color: inherit;
+}
+
+#editor a {
+    color: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#editor code {
+    background: #f2f2f2;
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+#editor pre {
+    background: #1e1e1e;
+    color: #eaeaea;
+    padding: 14px;
+    border-radius: 8px;
+    margin: 10px 0;
+    overflow-x: auto;
+    font-family: monospace;
+}
+
+#editor pre code {
+    background: transparent;
+    padding: 0;
+    color: inherit;
+}
+
+#editor pre.code-block {
+    background: #1e1e1e;
+    color: #e6e6e6;
+    padding: 12px;
+    border-radius: 8px;
+    font-family: monospace;
+    white-space: pre-wrap;
+}
+
+/* =====================================================
+     FULL DARK MODE OVERRIDE — Forces dark on all white areas
+===================================================== */
+
+body.dark,
+body.dark * {
+    background-color: transparent !important;
+    color: #e6e6e6 !important;
+    border-color: #30363d !important;
+}
+
+/* main background */
+body.dark {
+    background-color: #0d1117 !important;
+}
+
+/* app & wrapper containers */
+body.dark .app,
+body.dark .container,
+body.dark .main,
+body.dark .note-editor-wrapper,
+body.dark #content-wrapper {
+    background-color: #0d1117 !important;
+}
+
+/* toolbar + top areas */
+body.dark #toolbar,
+body.dark .toolbar,
+body.dark .topbar {
+    background-color: #161b22 !important;
+    border-bottom: 1px solid #30363d !important;
+}
+
+/* buttons */
+body.dark button,
+body.dark .btn {
+    background-color: #21262d !important;
+    color: #e6e6e6 !important;
+    border: 1px solid #30363d !important;
+}
+
+body.dark button:hover,
+body.dark .btn:hover {
+    background-color: #30363d !important;
+}
+
+/* editor */
+body.dark #editor,
+body.dark .editor {
+    background-color: #0d1117 !important;
+    color: #e6e6e6 !important;
+    border: none !important;
+}
+
+/* input fields */
+body.dark input,
+body.dark textarea,
+body.dark select {
+    background-color: #161b22 !important;
+    color: #e6e6e6 !important;
+    border: 1px solid #30363d !important;
+}
+
+/* sidebar & folders */
+body.dark #sidebar,
+body.dark .sidebar,
+body.dark .folder,
+body.dark .note-item,
+body.dark .folder-item {
+    background-color: #161b22 !important;
+    color: #e6e6e6 !important;
+    border: 1px solid #30363d !important;
+}
+
+body.dark .note-item:hover,
+body.dark .folder-item:hover {
+    background-color: #1f2430 !important;
+}
+
+/* headings & text */
+body.dark h1,
+body.dark h2,
+body.dark h3,
+body.dark h4,
+body.dark p,
+body.dark span,
+body.dark li,
+body.dark label {
+    color: #e6e6e6 !important;
+}
+
+/* links */
+body.dark a {
+    color: #58a6ff !important;
+}
+
+/* code inline */
+body.dark code {
+    background-color: #1f2428 !important;
+    color: #ffcb6b !important;
+}
+
+/* Dark mode - code block pink style */
+body.dark pre.code-block {
+    background-color: #291320 !important;
+    /* پس‌زمینه‌ی صورتی تیره */
+    border: 1px solid #ff4fa3 !important;
+    /* قاب صورتی */
+    color: #ffb3d9 !important;
+    /* رنگ متن صورتی روشن */
+}
+
+/* اگر placeholder داری برای code block */
+body.dark pre.code-block code:empty::before {
+    color: #ff85c0 !important;
+}
+
+/* inline code هم زرد بمونه */
+body.dark code:not(pre code) {
+    background: #1f2428 !important;
+    color: #ffcb6b !important;
+}
+
+/* scrollbar */
+body.dark ::-webkit-scrollbar {
+    width: 8px;
+}
+
+body.dark ::-webkit-scrollbar-track {
+    background: #0d1117 !important;
+}
+
+body.dark ::-webkit-scrollbar-thumb {
+    background: #30363d !important;
+    border-radius: 8px;
+}
