@@ -22,7 +22,3 @@ A simple and aesthetically pleasing pink-themed notebook application built with 
 ## Contributing
 
 This is a sample project. Contributions are welcome if desired.
-
-## License
-
-This project is licensed under the MIT License. (Please replace with your actual license if different)
